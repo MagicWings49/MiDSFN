@@ -50,17 +50,19 @@ $ pip install -U scikit-learn
 $ pip install yacs
 $ pip install prettytable
 $ pip install typing
+$ pip install openpyxl
+$ pip install rdkit
+$ pip install pillow
+$ pip install scipy
+$ pip install matplotlib
+$ pip install seaborn
 
-# clone the source code of DrugBAN
-$ git clone https://github.com/MagicWings49/MiDSFN.git
-$ cd MiDSFN
 ```
-
 
 ## Datasets
 The `source_dealed_data` folder contains MDAD and aBiofilm datasets and correlated information we select in [gcType](https://gctype.wdcm.org/) [Microbial high quality 16s rDNA gene strips] and [PubChem](https://pubchem.ncbi.nlm.nih.gov/) [Drug 1D CanonicalSMILES].
 
-The `datasets` folder contains all experimental data extract from used in MiDSFN.
+The `datasets` folder contains some experimental data extract from used in MiDSFN, we can also randomly generate new data corresponding to the experiment by running the code `experiment…….py`. In which these codes grab data from `source_dealed_data` according to the requirements of the paper.
 
 The `new_probably_connections(Fuzzy_set)` folder contains the probably connections searched using the code in file MDAD and aBiofilm datasets. The code run date is from 2024/9/23 to 2024/10/1, if some new connections are needed, it is better to use the code to search again as far as we need to search, as there will be a handful of new articles over time. And the articles are all from [PubMed](https://pubmed.ncbi.nlm.nih.gov/) [A resource can search for biomedical papers and abstracts, free searchable databases], just type in the corresponding PMID to find the article.
 
