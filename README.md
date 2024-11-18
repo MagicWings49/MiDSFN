@@ -62,9 +62,11 @@ $ pip install seaborn
 ## Datasets
 The `source_dealed_data` folder contains MDAD and aBiofilm datasets and correlated information we select in [gcType](https://gctype.wdcm.org/) [Microbial high quality 16s rDNA gene strips] and [PubChem](https://pubchem.ncbi.nlm.nih.gov/) [Drug 1D CanonicalSMILES].
 
-The `datasets` folder contains some experimental data extract from used in MiDSFN, we can also randomly generate new data corresponding to the experiment by running the code `experiment…….py`. In which these codes grab data from `source_dealed_data` according to the requirements of the paper.
+The `datasets` folder contains some experimental data extract from used in MiDSFN, we can also randomly generate new data corresponding to the experiment by running the code `experiment…….py`. In which these codes grab data from `source_dealed_data` according to the requirements of the paper. We should run this code before running the main code for training the model to generate the corresponding training data, which is saved in the corresponding folders train.csv (training set), val.csv (validation set) and test.csv (test set).
+![MiDSFN](datasets/Data_split&combine.png)
 
 The `new_probably_connections(Fuzzy_set)` folder contains the probably connections searched using the code in file MDAD and aBiofilm datasets. The code run date is from 2024/9/23 to 2024/10/1, if some new connections are needed, it is better to use the code to search again as far as we need to search, as there will be a handful of new articles over time. And the articles are all from [PubMed](https://pubmed.ncbi.nlm.nih.gov/) [A resource can search for biomedical papers and abstracts, free searchable databases], just type in the corresponding PMID to find the article.
+![MiDSFN](new_probably_connections(Fuzzy_set)/Searching_connections.png)
 
 ## Demo
 The **expected output and run time** of demo has been provided in the colab notebook for verification.
@@ -74,7 +76,7 @@ The **expected output and run time** of demo has been provided in the colab note
 
 To train MiDSFN, where we provide the basic configurations for all hyperparameters in `config.py`. For key parameters and experimental setups, the customized task configurations can be found in respective `configs/MiDSFN.yaml` files, and these settings override those in `config.py`.
 
-For different data input experiments with vanilla MiDSFN, you can directly run the following command. `${split_task}` could be `MDAD`, `aBiofilm`, `MDAD_aBiofilm`, `aBiofilm_MDAD`, `MDAD+aBiofilm`, `aBiofilm_to_MDAD`, `MDAD_aBiofilm_discard`, `MDAD+aBiofilm_discard`, `Case_prediction`, `Ethnic_interaction`. 
+For different data input experiments with vanilla MiDSFN, you can directly run the following command. `${split_task}` could be `MDAD`, `aBiofilm`, `MDAD_aBiofilm`, `aBiofilm_MDAD`, `MDAD+aBiofilm`, `aBiofilm_to_MDAD`, `MDAD_aBiofilm_discard`, `MDAD+aBiofilm_discard`, `Case_prediction`, `Ethnic_interaction`. As another reminder, the corresponding section in the `datasets` folder has already generated the experimental data.
 ```
 $ python main.py --cfg "configs/MiDSFN.yaml" --data "drug_microbe" --split ${split_task}
 ```
@@ -83,7 +85,7 @@ $ python main.py --cfg "configs/MiDSFN.yaml" --data "drug_microbe" --split ${spl
 
 All program code files such as `experiment…….py` are the data process programs to process data in `source_dealed_data` and save dealed data for experiment in `datasets`.
 
-All program code files such as `model_invoke_…….py` are the check programs for the trained models in folder `result`, they have different functions. And set the command following annotations in corresponding code.
+All program code files such as `model_invoke_…….py` are the check programs for the trained models in folder `result`, they have different functions. And set the command following annotations in corresponding code. And pay attention to the path of the optimal model file read in the code, each computer may run a different optimal model round (it could be any integer between 1-20), we need to change the code to read the path of the statement, which is next to the note `#This place need to be confirm every time.`.
 
 ## Comet ML
 [Comet ML](https://www.comet.com/site/) is an online machine learning experimentation platform, which help researchers to track and monitor their ML experiments. We provide Comet ML support to easily monitor training process in our code.
