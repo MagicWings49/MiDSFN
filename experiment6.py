@@ -88,14 +88,14 @@ random.shuffle(train_3)
 print(len(train_1))
 print(len(train_2))
 print(len(train_3))
-exit()
+
 train = train_1 + train_2 + train_3
 val = val_1 + val_2 + val_3
 test = test_1 + test_2 + test_3
 print('aB_only_length:'+str(len(test_1)))
 print('repeated_length:'+str(len(test_2)))
 print('MD_only_length:'+str(len(test_3)))
-exit()
+
 with open('./datasets/drug_microbe/aBiofilm_to_MDAD/val.csv', 'w', newline='',encoding='utf-8') as f:
     writer = csv.writer(f)
     writer.writerow(st)

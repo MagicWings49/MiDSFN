@@ -144,21 +144,21 @@ test = kn_te + uk_te
 random.shuffle(val)
 random.shuffle(train)
 
-with open('datasets/drug_microbe/Case_prediction_Discard_Unfocus/val.csv', 'w', newline='', encoding='utf-8') as f:
+with open('datasets/drug_microbe/Case_prediction/val.csv', 'w', newline='', encoding='utf-8') as f:
     writer = csv.writer(f)
     writer.writerow(st)
     for row in val:
         writer.writerow(row)
 f.close()
 
-with open('datasets/drug_microbe/Case_prediction_Discard_Unfocus/train.csv', 'w', newline='', encoding='utf-8') as f:
+with open('datasets/drug_microbe/Case_prediction/train.csv', 'w', newline='', encoding='utf-8') as f:
     writer = csv.writer(f)
     writer.writerow(st)
     for row in train:
         writer.writerow(row)
 f.close()
 
-with open('datasets/drug_microbe/Case_prediction_Discard_Unfocus/test.csv', 'w', newline='', encoding='utf-8') as f:
+with open('datasets/drug_microbe/Case_prediction/test.csv', 'w', newline='', encoding='utf-8') as f:
     writer = csv.writer(f)
     writer.writerow(st)
     for row in test:
