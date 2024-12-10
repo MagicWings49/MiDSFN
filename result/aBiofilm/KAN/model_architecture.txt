@@ -1,0 +1,105 @@
+DrugBAN(
+  (drug_extractor): MolecularGCN(
+    (init_transform): Linear(in_features=75, out_features=128, bias=False)
+    (gnn): GCN(
+      (gnn_layers): ModuleList(
+        (0): GCNLayer(
+          (graph_conv): GraphConv(in=128, out=128, normalization=none, activation=<function relu at 0x000001BAF44C9798>)
+          (dropout): Dropout(p=0.0, inplace=False)
+          (res_connection): Linear(in_features=128, out_features=128, bias=True)
+          (bn_layer): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (1): GCNLayer(
+          (graph_conv): GraphConv(in=128, out=128, normalization=none, activation=<function relu at 0x000001BAF44C9798>)
+          (dropout): Dropout(p=0.0, inplace=False)
+          (res_connection): Linear(in_features=128, out_features=128, bias=True)
+          (bn_layer): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (2): GCNLayer(
+          (graph_conv): GraphConv(in=128, out=128, normalization=none, activation=<function relu at 0x000001BAF44C9798>)
+          (dropout): Dropout(p=0.0, inplace=False)
+          (res_connection): Linear(in_features=128, out_features=128, bias=True)
+          (bn_layer): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+    )
+  )
+  (microbe_extractor): MicrobeTransformer(
+    (embedding): Embedding(73, 128, padding_idx=0)
+    (position_embeddings): PositionalEncoding(
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (transformer): MultiHeadAttention(
+      (W_Q_dense): Linear(in_features=128, out_features=256, bias=False)
+      (W_K_dense): Linear(in_features=128, out_features=256, bias=False)
+      (W_V_dense): Linear(in_features=128, out_features=256, bias=False)
+      (scale_product): ScaledDotProductAttention()
+      (out_dense): Linear(in_features=256, out_features=128, bias=False)
+      (LN): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (drug_graphCNN): CustomCNN(
+    (conv1): Conv2d(1, 8, kernel_size=(2, 2), stride=(2, 2))
+    (pool1): MaxPool2d(kernel_size=3, stride=3, padding=0, dilation=1, ceil_mode=False)
+    (conv2): Conv2d(8, 16, kernel_size=(3, 3), stride=(2, 2))
+    (pool2): MaxPool2d(kernel_size=3, stride=3, padding=0, dilation=1, ceil_mode=False)
+    (fc): Linear(in_features=1296, out_features=128, bias=True)
+  )
+  (microbe_genomicResNet): SmallActivationNetwork(
+    (linear_layer): Linear(in_features=102, out_features=140, bias=True)
+    (fc1): Linear(in_features=102, out_features=102, bias=True)
+    (bn1): BatchNorm1d(102, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (fc2): Linear(in_features=102, out_features=102, bias=True)
+    (bn2): BatchNorm1d(102, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (fc_out): Linear(in_features=102, out_features=128, bias=True)
+  )
+  (bcn): BANLayer(
+    (v_net): FCNet(
+      (main): Sequential(
+        (0): Dropout(p=0.2, inplace=False)
+        (1): Linear(in_features=128, out_features=768, bias=True)
+        (2): ReLU()
+      )
+    )
+    (q_net): FCNet(
+      (main): Sequential(
+        (0): Dropout(p=0.2, inplace=False)
+        (1): Linear(in_features=128, out_features=768, bias=True)
+        (2): ReLU()
+      )
+    )
+    (p_net): AvgPool1d(kernel_size=(3,), stride=(3,), padding=(0,))
+    (bn): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  )
+  (mlp_classifier): MLPDecoder(
+    (fc1): Linear(in_features=384, out_features=512, bias=True)
+    (bn1): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (fc2): Linear(in_features=512, out_features=512, bias=True)
+    (bn2): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (fc3): Linear(in_features=512, out_features=128, bias=True)
+    (bn3): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (fc4): Linear(in_features=128, out_features=2, bias=True)
+  )
+  (kan_classifier): FastKAN(
+    (layers): ModuleList(
+      (0): FastKANLayer(
+        (layernorm): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (rbf): RadialBasisFunction()
+        (spline_linear): SplineLinear(in_features=3072, out_features=512, bias=False)
+        (base_linear): Linear(in_features=384, out_features=512, bias=True)
+      )
+      (1): FastKANLayer(
+        (layernorm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+        (rbf): RadialBasisFunction()
+        (spline_linear): SplineLinear(in_features=4096, out_features=256, bias=False)
+        (base_linear): Linear(in_features=512, out_features=256, bias=True)
+      )
+      (2): FastKANLayer(
+        (layernorm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        (rbf): RadialBasisFunction()
+        (spline_linear): SplineLinear(in_features=2048, out_features=2, bias=False)
+        (base_linear): Linear(in_features=256, out_features=2, bias=True)
+      )
+    )
+  )
+)

@@ -1,0 +1,15 @@
+SOLVER:
+  BATCH_SIZE: 64
+  MAX_EPOCH: 20
+  LR: 5e-5
+  SEED: 42
+
+DECODER:
+  BINARY: 2
+  NAME: "KAN"    #Choosing betewwn "MLP" and "KAN".
+
+# Config below only when you use comet
+COMET:
+  PROJECT_NAME: "MiDSFN"
+  TAG: "Non_DA"
+
