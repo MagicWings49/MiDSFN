@@ -1,7 +1,7 @@
 # Predicting drug-microbe associations using a signature fusion learning network | [Paper](https://doi.org/10.1038/s42256-022-00605-1)
 
 ## Introduction
-This repository contains the PyTorch implementation of **MiDSFN** framework, as described in our *Nature Computational Science* paper "[Predicting drug-microbe associations using a signature fusion learning network](https://doi.org/)".  **MiDSFN** is a deep feature fusion network framework to explicitly learn pair-wise local interactions between drugs and microbes.
+This repository contains the PyTorch implementation of **MiDSFN** framework, as described in our *IEEE* paper "[Predicting drug-microbe associations using a signature fusion learning network](https://doi.org/)".  **MiDSFN** is a deep feature fusion network framework to explicitly learn pair-wise local interactions between drugs and microbes.
 It works on two-dimensional (2D) drug molecular graphs and microbe coding sequences to perform prediction.
 
 ## Contexts
